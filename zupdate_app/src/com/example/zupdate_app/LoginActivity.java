@@ -6,15 +6,12 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,11 +50,13 @@ public class LoginActivity extends Activity {
 		 
 	    @Override
 	    protected String doInBackground(String... params) {
+	    	
 	    	String jsonData = "";
 	    	inputUserName = (EditText) findViewById(R.id.username);
 			inputPassWord = (EditText) findViewById(R.id.password);
 			String Param = "username="+inputUserName.getText() + "&password=" + inputPassWord.getText();
-	    	try{
+	    	
+			try{
 	    		URL url = new URL(params[0]);
 		    	HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		    	con.setRequestMethod("POST");
@@ -66,7 +65,6 @@ public class LoginActivity extends Activity {
 		    	writer.write(Param);
 		    	writer.flush();
 		    	
-		    	//StringBuilder sb = new StringBuilder();
 		    	BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
 		    	String line;
@@ -75,9 +73,11 @@ public class LoginActivity extends Activity {
 		    	}
 		    	
 		    	return jsonData;
+		    	
 	    	}catch(Exception e){
 	    		
 	    	}
+			
 			return null;
 	    }
 	 
@@ -88,16 +88,22 @@ public class LoginActivity extends Activity {
 				
 	    		JSONObject obj = new JSONObject(result);
 	            String codeStatus = obj.getString("status");
+	            JSONObject userObj = obj.getJSONObject("user_data");
+	            String userEmail = userObj.getString("email");
+	            String userFullName = userObj.getString("name");	            
 	            String message = obj.getString("message");
+	            
 	            if( codeStatus == "200"){
+	            	//Message
+	            	
 	            	//Session
 	            	
 	            	//Redirect
 	            	
 	            } else {
 	            	//Error message
-	            	lblOutput = (TextView) findViewById(R.id.hello_world);
-					lblOutput.setText(codeStatus);
+	            	lblOutput = (TextView) findViewById(R.id.login_message);
+					lblOutput.setText(message);
 			    	lblOutput.getText().toString();
 	            }
 								

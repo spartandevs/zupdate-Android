@@ -40,12 +40,12 @@
         android:text="Login" />
 
     <TextView
-        android:id="@+id/hello_world"
+        android:id="@+id/login_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/username"
         android:layout_alignParentTop="true"
         android:layout_marginTop="54dp"
-        android:text="@string/hello_world" />
+        />
 
 </RelativeLayout>
