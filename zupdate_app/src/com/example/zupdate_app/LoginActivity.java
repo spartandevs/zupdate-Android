@@ -3,7 +3,6 @@ package com.example.zupdate_app;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -41,7 +40,8 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub				
+				// TODO Auto-generated method stub
+				
 				new CallAPI().execute(restURL);
 			}
 			
@@ -53,6 +53,7 @@ public class LoginActivity extends Activity {
 		 
 	    @Override
 	    protected String doInBackground(String... params) {
+	    	String jsonData = "";
 	    	inputUserName = (EditText) findViewById(R.id.username);
 			inputPassWord = (EditText) findViewById(R.id.password);
 			String Param = "username="+inputUserName.getText() + "&password=" + inputPassWord.getText();
@@ -65,42 +66,47 @@ public class LoginActivity extends Activity {
 		    	writer.write(Param);
 		    	writer.flush();
 		    	
-		    	StringBuilder sb = new StringBuilder();
+		    	//StringBuilder sb = new StringBuilder();
 		    	BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-		    	String response;
-		    	while((response = reader.readLine()) != null){
-		    		sb.append(response);
-		    	}		    	
+		    	String line;
+		    	while((line = reader.readLine()) != null){
+		    		jsonData += line + "\n";
+		    	}
 		    	
-		    	return sb.toString();
-		    	
+		    	return jsonData;
 	    	}catch(Exception e){
 	    		
 	    	}
-	    	
 			return null;
 	    }
 	 
 	    @Override
 	    protected void onPostExecute(String result) {
 	    	// TODO Auto-generated method stub
-	    	
 	    	try {
 				
-	    		JSONObject obj = new JSONObject(result);				
-				int codeStatus = obj.getInt("status");				
+	    		JSONObject obj = new JSONObject(result);
+	            String codeStatus = obj.getString("status");
+	            String message = obj.getString("message");
+	            if( codeStatus == "200"){
+	            	//Session
+	            	
+	            	//Redirect
+	            	
+	            } else {
+	            	//Error message
+	            	lblOutput = (TextView) findViewById(R.id.hello_world);
+					lblOutput.setText(codeStatus);
+			    	lblOutput.getText().toString();
+	            }
 								
-				lblOutput = (TextView) findViewById(R.id.hello_world);
-				lblOutput.setText(codeStatus);
-		    	lblOutput.getText().toString();
+				
 		    	
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	
-	    	
 	    	super.onPostExecute(result);
 	    }
 	    

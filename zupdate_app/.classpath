@@ -6,5 +6,8 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="C:/Users/Charlie/AppData/Roaming/Skype/My Skype Received Files/AndroidLoginAndRegistration v2/AndroidLoginAndRegistration v2/AndroidLoginAndRegistration/libs/volley.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/Downloads/google-gson-2.2.4/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/Downloads/google-gson-2.2.4/gson-2.2.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/Downloads/google-gson-2.2.4/gson-2.2.4-sources.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
