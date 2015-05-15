@@ -1,5 +1,7 @@
 package com.example.zupdate_app;
 
+import com.example.zupdate_app.helper.SessionManager;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -10,20 +12,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
-	private TextView lblOutput;
 	private Button btnLogin;
 	private String restURL;
 	private EditText inputUserName;
 	private EditText inputPassWord;
+	private SessionManager session;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,10 @@ public class LoginActivity extends Activity {
 
 	private class CallAPI extends AsyncTask<String, String, String> {
 		 
-	    @Override
+		@Override
 	    protected String doInBackground(String... params) {
 	    	
-	    	String jsonData = "";
+	    	String jsonData  = "";
 	    	inputUserName = (EditText) findViewById(R.id.username);
 			inputPassWord = (EditText) findViewById(R.id.password);
 			String Param = "username="+inputUserName.getText() + "&password=" + inputPassWord.getText();
@@ -83,30 +87,47 @@ public class LoginActivity extends Activity {
 	 
 	    @Override
 	    protected void onPostExecute(String result) {
+	    	
+	    	session = new SessionManager(getApplicationContext());
+	    	
 	    	// TODO Auto-generated method stub
 	    	try {
 				
 	    		JSONObject obj = new JSONObject(result);
-	            String codeStatus = obj.getString("status");
-	            JSONObject userObj = obj.getJSONObject("user_data");
-	            String userEmail = userObj.getString("email");
-	            String userFullName = userObj.getString("name");	            
-	            String message = obj.getString("message");
+	            int codeStatus = obj.getInt("status");
+	            String errMessage = obj.getString("message");
 	            
-	            if( codeStatus == "200"){
-	            	//Message
-	            	
+	            
+	            if( codeStatus == 200){
+	            	//User data
+		            JSONObject userObj = obj.getJSONObject("user_data");
+		            String userEmail = userObj.getString("email");
+		            String userFullName = userObj.getString("name");
+		            String userName = userObj.getString("username");
+		            String userToken = userObj.getString("remember_token");
+		            
 	            	//Session
-	            	
+	            	session.setLogin(true);
+	            	session.setUserName(userName);
+	            	session.setToken(userToken);
+	            	session.setUserEmail(userEmail);
+	            	session.setFullName(userFullName);
+	            	session.commit(); 	            	
+
 	            	//Redirect
-	            	
+	            	Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+	            	startActivity(intent);
+	            	finish();
+	            				    	
 	            } else {
 	            	//Error message
-	            	lblOutput = (TextView) findViewById(R.id.login_message);
-					lblOutput.setText(message);
-			    	lblOutput.getText().toString();
-	            }
-								
+	            	Context context = getApplicationContext();
+	            	CharSequence text = errMessage;
+	            	int duration = Toast.LENGTH_SHORT;
+
+	            	Toast toast = Toast.makeText(context, text, duration);
+	            	toast.show();
+	            }	
 				
 		    	
 			} catch (JSONException e) {

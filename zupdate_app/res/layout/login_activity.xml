@@ -16,7 +16,9 @@
         android:layout_below="@+id/hello_world"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName" >
+        <requestFocus />
+        </EditText>
 
     <EditText
         android:id="@+id/password"
@@ -27,7 +29,7 @@
         android:ems="10"
         android:inputType="textPassword" >
 
-        <requestFocus />
+        
     </EditText>
 
     <Button
@@ -39,13 +41,6 @@
         android:layout_marginTop="35dp"
         android:text="Login" />
 
-    <TextView
-        android:id="@+id/login_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/username"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="54dp"
-        />
+
 
 </RelativeLayout>

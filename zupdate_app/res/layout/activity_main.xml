@@ -8,44 +8,65 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.zupdate_app.MainActivity" >
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/password"
-        android:layout_below="@+id/hello_world"
-        android:layout_marginTop="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="68dp"
+        android:layout_marginTop="35dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="33dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
-        android:layout_marginTop="22dp"
-        android:ems="10"
-        android:inputType="textPassword" >
+        android:layout_alignBaseline="@+id/editText1"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignParentLeft="true"
+        android:text="Send To" />
 
-        <requestFocus />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="31dp"
+        android:text="Message" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_marginLeft="29dp"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        
     </EditText>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/password"
-        android:layout_below="@+id/password"
-        android:layout_marginTop="35dp"
-        android:text="Button" />
-
-    <TextView
-        android:id="@+id/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/username"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="54dp"
-        android:text="@string/hello_world" />
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="36dp"
+        android:text="Send" />
 
 </RelativeLayout>
