@@ -26,6 +26,10 @@ public class SessionManager {
 		editor = pref.edit();
 	}
 	
+	public void setUserID(String value){
+		editor.putString("userID", value);
+	}
+	
 	public void setUserName(String value){
 		editor.putString("username",value);
 	}
@@ -46,10 +50,16 @@ public class SessionManager {
 		editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
 	}
 	
+	public String getUserID(){
+		String userID;
+		userID = pref.getString("userID",null);
+		return userID;		
+	}
+	
 	public String getUserName(){
-		String username;
-		username = pref.getString("username",null);
-		return username;		
+		String userName;
+		userName = pref.getString("username",null);
+		return userName;		
 	}
 	
 	public String getFullName(){

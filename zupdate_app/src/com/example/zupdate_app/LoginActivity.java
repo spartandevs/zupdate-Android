@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
@@ -34,15 +35,15 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
 		
-		restURL = "http://192.168.254.106/zupservice/public/api/v1/user/auth";
+		restURL = "http://192.168.254.110/zupservice/public/api/v1/user/auth";
 		btnLogin = (Button) findViewById(R.id.btnLogin); 
-		
+		TextView tv = (TextView) findViewById(R.id.textView1);
+		tv.setText("hello");
+		tv.getText().toString();
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
 				new CallAPI().execute(restURL);
 			}
 			
@@ -58,7 +59,7 @@ public class LoginActivity extends Activity {
 	    	String jsonData  = "";
 	    	inputUserName = (EditText) findViewById(R.id.username);
 			inputPassWord = (EditText) findViewById(R.id.password);
-			String Param = "username="+inputUserName.getText() + "&password=" + inputPassWord.getText();
+			String Param = "username="+inputUserName.getText().toString() + "&password=" + inputPassWord.getText().toString();
 	    	
 			try{
 	    		URL url = new URL(params[0]);
@@ -101,6 +102,7 @@ public class LoginActivity extends Activity {
 	            if( codeStatus == 200){
 	            	//User data
 		            JSONObject userObj = obj.getJSONObject("user_data");
+		            String userID = userObj.getString("id");
 		            String userEmail = userObj.getString("email");
 		            String userFullName = userObj.getString("name");
 		            String userName = userObj.getString("username");
@@ -108,12 +110,21 @@ public class LoginActivity extends Activity {
 		            
 	            	//Session
 	            	session.setLogin(true);
+	            	session.setUserID(userID);
 	            	session.setUserName(userName);
 	            	session.setToken(userToken);
 	            	session.setUserEmail(userEmail);
 	            	session.setFullName(userFullName);
 	            	session.commit(); 	            	
+	            	
+	            	//Error message
+	            	Context context = getApplicationContext();
+	            	CharSequence text = errMessage;
+	            	int duration = Toast.LENGTH_SHORT;
 
+	            	Toast toast = Toast.makeText(context, text, duration);
+	            	toast.show();
+	            	
 	            	//Redirect
 	            	Intent intent = new Intent(LoginActivity.this,MainActivity.class);
 	            	startActivity(intent);
