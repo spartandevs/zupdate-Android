@@ -26,8 +26,8 @@ public class SessionManager {
 		editor = pref.edit();
 	}
 	
-	public void setUserID(String value){
-		editor.putString("userID", value);
+	public void setUserID(int value){
+		editor.putInt("userID", value);
 	}
 	
 	public void setUserName(String value){
@@ -50,9 +50,9 @@ public class SessionManager {
 		editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
 	}
 	
-	public String getUserID(){
-		String userID;
-		userID = pref.getString("userID",null);
+	public Integer getUserID(){
+		Integer userID;
+		userID = pref.getInt("userID", 0);
 		return userID;		
 	}
 	

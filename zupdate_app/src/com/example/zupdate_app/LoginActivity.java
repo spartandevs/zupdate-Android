@@ -35,11 +35,9 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
 		
-		restURL = "http://192.168.254.110/zupservice/public/api/v1/user/auth";
+		restURL = "http://192.168.254.108/zupservice/public/api/v1/user/auth";
 		btnLogin = (Button) findViewById(R.id.btnLogin); 
-		TextView tv = (TextView) findViewById(R.id.textView1);
-		tv.setText("hello");
-		tv.getText().toString();
+		
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -102,7 +100,7 @@ public class LoginActivity extends Activity {
 	            if( codeStatus == 200){
 	            	//User data
 		            JSONObject userObj = obj.getJSONObject("user_data");
-		            String userID = userObj.getString("id");
+		            int userID = userObj.getInt("id");
 		            String userEmail = userObj.getString("email");
 		            String userFullName = userObj.getString("name");
 		            String userName = userObj.getString("username");
